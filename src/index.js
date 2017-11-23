@@ -23,15 +23,22 @@ const [_, __, command, ...rest] = process.argv;
 
 const uuidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
 
-const grouped = R.groupBy(
-	x =>
-		(R.test(/^[0-9]+$/, x) && "ids") ||
-		(R.test(uuidRegex, x) && "uuids") ||
-		(R.test(/^[a-zA-Z0-9]+:[a-zA-Z0-9]+$/, x) && "props") ||
-		(R.test(/^[+-][a-zA-Z0-9]+$/, x) && "tags") ||
-		"strings",
-	rest,
-);
+const grouped = R.pipe(
+	R.groupBy(
+		x =>
+			(R.test(/^[0-9]+$/, x) && "ids") ||
+			(R.test(uuidRegex, x) && "uuids") ||
+			(R.test(/^[a-zA-Z0-9]+:[a-zA-Z0-9]+$/, x) && "props") ||
+			(R.test(/^[+-][a-zA-Z0-9]+$/, x) && "tags") ||
+			"strings",
+	),
+
+	R.over(R.lensProp("ids"), R.defaultTo([])),
+	R.over(R.lensProp("uuids"), R.defaultTo([])),
+	R.over(R.lensProp("props"), R.defaultTo([])),
+	R.over(R.lensProp("tags"), R.defaultTo([])),
+	R.over(R.lensProp("strings"), R.defaultTo([])),
+)(rest);
 
 (({
 	add,
