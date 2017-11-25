@@ -49,6 +49,7 @@ storeIsReady().then(() => {
 		delete: delete_,
 		done,
 		modify,
+		"undefined": () => {},
 	}[command] || noop)({
 		...grouped,
 		command,

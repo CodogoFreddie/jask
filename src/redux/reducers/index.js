@@ -8,7 +8,7 @@ export const ids = (state = [], action) =>
 
 export const created = (state = {}, action) =>
 	((action.type === Consts.Actions.CREATE &&
-		R.assoc(action.id, new Date().toISOString())) ||
+		R.assoc(action.id, new Date(action.created))) ||
 		R.identity)(state);
 
 export const depends = (state = {}, action) =>
@@ -23,7 +23,7 @@ export const description = (state = {}, action) =>
 
 export const due = (state = {}, action) =>
 	((action.type === Consts.Actions.CREATE &&
-		R.assoc(action.id, action.due)) ||
+		R.assoc(action.id, new Date(action.due))) ||
 		R.identity)(state);
 
 export const priority = (state = {}, action) =>
@@ -38,7 +38,7 @@ export const recur = (state = {}, action) =>
 
 export const wait = (state = {}, action) =>
 	((action.type === Consts.Actions.CREATE &&
-		R.assoc(action.id, action.wait)) ||
+		R.assoc(action.id, new Date(action.wait))) ||
 		R.identity)(state);
 
 export const tags = (state = [], action) =>
@@ -49,9 +49,4 @@ export const tags = (state = [], action) =>
 				task: action.id,
 			})),
 		)) ||
-		R.identity)(state);
-
-export const updated = (state = {}, action) =>
-	((!action.type.includes("@@redux") &&
-		R.assoc(action.id, new Date().toISOString())) ||
 		R.identity)(state);

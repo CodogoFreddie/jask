@@ -3,10 +3,9 @@ import R from "ramda";
 import Consts from "./consts";
 import { genUUID } from "./lib";
 import store from "./redux";
+import { parse } from "./dateShortcuts";
 
 export default ({ props, tags, strings }) => {
-	console.log("before", store.getState());
-
 	const description = strings.join(" ");
 
 	const tagsList = R.pipe(
@@ -22,20 +21,17 @@ export default ({ props, tags, strings }) => {
 	const action = {
 		type: Consts.Actions.CREATE,
 		id: genUUID(),
+		created: new Date().toISOString(),
 		depends,
 		description,
-		due,
+		due: parse(due).toISOString(),
 		priority,
 		project,
 		props: rest,
 		recur,
 		tags: tagsList,
-		wait,
+		wait: parse(wait).toISOString(),
 	};
 
-	console.log(action);
-
 	store.dispatch(action);
-
-	console.log("after", store.getState());
 };
