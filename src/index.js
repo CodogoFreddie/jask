@@ -8,7 +8,7 @@ const delete_ = stubbed;
 const done = stubbed;
 const modify = stubbed;
 
-const noop = ({ command, }) =>
+const noop = ({ command }) =>
 	console.log(`
 invalid command "${command}".
 
@@ -28,7 +28,7 @@ const grouped = R.pipe(
 		x =>
 			(R.test(/^[0-9]+$/, x) && "ids") ||
 			(R.test(uuidRegex, x) && "uuids") ||
-			(R.test(/^[a-zA-Z0-9]+:[a-zA-Z0-9]+$/, x) && "props") ||
+			(R.test(/^[a-zA-Z0-9]+:.+$/, x) && "props") ||
 			(R.test(/^[+-][a-zA-Z0-9]+$/, x) && "tags") ||
 			"strings",
 	),

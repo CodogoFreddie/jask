@@ -1,6 +1,12 @@
 import R from "ramda";
 
-export default ({ props, tags, strings, }) => {
+import Consts from "./consts";
+import { genUUID } from "./lib";
+import store from "./redux";
+
+export default ({ props, tags, strings }) => {
+	console.log("before", store.getState());
+
 	const description = strings.join(" ");
 
 	const tagsList = R.pipe(
@@ -8,9 +14,28 @@ export default ({ props, tags, strings, }) => {
 		R.map(R.replace(/^\+/, "")),
 	)(tags);
 
-	const propertiesMap = R.pipe(R.map(R.split(":")), R.fromPairs)(props);
+	const { due, wait, depends, project, priority, recur, ...rest } = R.pipe(
+		R.map(R.split(":")),
+		R.fromPairs,
+	)(props);
 
-	console.log(`Add a task with the description "${description}",
-With the tags: [${tagsList}]
-And the Properties: ${JSON.stringify(propertiesMap, null, 2)}`);
+	const action = {
+		type: Consts.Actions.CREATE,
+		id: genUUID(),
+		depends,
+		description,
+		due,
+		priority,
+		project,
+		props: rest,
+		recur,
+		tags: tagsList,
+		wait,
+	};
+
+	console.log(action);
+
+	store.dispatch(action);
+
+	console.log("after", store.getState());
 };

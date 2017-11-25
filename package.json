@@ -41,6 +41,7 @@
 	"dependencies": {
 		"codogo-react-scripts": "^1.0.14-delta.84",
 		"ramda": "^0.25.0",
-		"redux": "^3.7.2"
+		"redux": "^3.7.2",
+		"uuid": "^3.1.0"
 	}
 }
