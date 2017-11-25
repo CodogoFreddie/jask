@@ -2,51 +2,13 @@ import R from "ramda";
 
 import Consts from "../../consts";
 
-export const ids = (state = [], action) =>
-	((action.type === Consts.Actions.CREATE && R.append(action.id)) ||
-		R.identity)(state);
-
-export const created = (state = {}, action) =>
-	((action.type === Consts.Actions.CREATE &&
-		R.assoc(action.id, new Date(action.created))) ||
-		R.identity)(state);
-
-export const depends = (state = {}, action) =>
-	((action.type === Consts.Actions.CREATE &&
-		R.assoc(action.id, action.depends)) ||
-		R.identity)(state);
-
-export const description = (state = {}, action) =>
-	((action.type === Consts.Actions.CREATE &&
-		R.assoc(action.id, action.description)) ||
-		R.identity)(state);
-
-export const due = (state = {}, action) =>
-	((action.type === Consts.Actions.CREATE &&
-		R.assoc(action.id, new Date(action.due))) ||
-		R.identity)(state);
-
-export const priority = (state = {}, action) =>
-	((action.type === Consts.Actions.CREATE &&
-		R.assoc(action.id, action.priority)) ||
-		R.identity)(state);
-
-export const recur = (state = {}, action) =>
-	((action.type === Consts.Actions.CREATE &&
-		R.assoc(action.id, action.recur)) ||
-		R.identity)(state);
-
-export const wait = (state = {}, action) =>
-	((action.type === Consts.Actions.CREATE &&
-		R.assoc(action.id, new Date(action.wait))) ||
-		R.identity)(state);
-
-export const tags = (state = [], action) =>
-	((action.type === Consts.Actions.CREATE &&
-		R.concat(
-			action.tags.map(tag => ({
-				tag,
-				task: action.id,
-			})),
-		)) ||
-		R.identity)(state);
+export { default as uuids } from "./uuids";
+export { default as created } from "./created";
+export { default as depends } from "./depends";
+export { default as description } from "./description";
+export { default as due } from "./due";
+export { default as priority } from "./priority";
+export { default as recur } from "./recur";
+export { default as wait } from "./wait";
+export { default as done } from "./done";
+export { default as tags } from "./tags";

@@ -5,7 +5,7 @@ import { genUUID } from "./lib";
 import store from "./redux";
 import { parse } from "./dateShortcuts";
 
-export default ({ props, tags, strings }) => {
+export default ({ modifiers: { props, tags, strings } }) => {
 	const description = strings.join(" ");
 
 	const tagsList = R.pipe(
@@ -13,24 +13,21 @@ export default ({ props, tags, strings }) => {
 		R.map(R.replace(/^\+/, "")),
 	)(tags);
 
-	const { due, wait, depends, project, priority, recur, ...rest } = R.pipe(
-		R.map(R.split(":")),
-		R.fromPairs,
-	)(props);
+	const { due, wait, depends, project, priority, recur, ...rest } = props;
 
 	const action = {
 		type: Consts.Actions.CREATE,
-		id: genUUID(),
+		uuid: genUUID(),
 		created: new Date().toISOString(),
 		depends,
 		description,
-		due: parse(due).toISOString(),
+		due: (due ? parse(due) : new Date() ).toISOString(),
 		priority,
 		project,
 		props: rest,
 		recur,
 		tags: tagsList,
-		wait: parse(wait).toISOString(),
+		wait: (wait ? parse(wait) : new Date() ).toISOString(),
 	};
 
 	store.dispatch(action);

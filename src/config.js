@@ -2,30 +2,31 @@ const differenceInMinutes = require("date-fns/differenceInMinutes");
 const differenceInDays = require("date-fns/differenceInDays");
 
 module.exports = {
-	dataFolder: "~/Sync/Files/Todo",
+	dataFolder: "/home/freddie/Sync/Files/Todo",
 
 	columns: [
 		"score",
+		"i",
 		"description",
-		"created",
-		"depends",
 		"due",
-		"priority",
-		"recur",
 		"tags",
+		"priority",
+		"depends",
+		"recur",
+		"created",
 	],
 
 	scoreFunction: ({ created, depends, due, priority, recur, wait, tags }) => {
 		const age = differenceInDays(new Date(), created);
 		const tagsCount = tags.length;
-		const dueIn = differenceInMinutes(due, new Date()) / 360 ;
+		const dueIn = differenceInMinutes(due, new Date()) / 360;
 
-		const priorityScore = {
+		const priorityScore = ({
 			h: 10,
 			m: 5,
 			l: -2,
-		}[priority];
+		}[priority] || 0);
 
-		return age + tagsCount + priorityScore + Math.exp(-dueIn);
+		return age + tagsCount + priorityScore + ( 10 * Math.exp(-dueIn) );
 	},
 };

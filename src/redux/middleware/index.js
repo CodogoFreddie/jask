@@ -6,7 +6,7 @@ import Consts from "../../consts";
 
 export const actionSaver = store => next => action => {
 	if (!action[Consts.Actions.RESTORING_FROM_CACHE]) {
-		const folder = config.dataFolder.replace(/\/?$/, "/") + action.id;
+		const folder = config.dataFolder.replace(/\/?$/, "/") + action.uuid;
 		const filename = folder + "/" + new Date().getTime();
 
 		mkdir(folder).then(() =>

@@ -4,10 +4,16 @@ import { formatDistanceWithOptions, format } from "date-fns/fp";
 
 import store from "./redux";
 import config from "./config";
+import getIDsSatisfyingFilter from "./getIDsSatisfyingFilter";
 
-export default () => {
+const map = R.addIndex(R.map);
+
+export default ({ filter, }) => {
+
+	console.log( getIDsSatisfyingFilter(filter) );
+
 	const {
-		ids,
+		uuids,
 		created,
 		depends,
 		description,
@@ -19,17 +25,20 @@ export default () => {
 	} = store.getState();
 
 	const data = R.pipe(
-		R.map(id => ({
-			//uuid: id,
-			created: created[id],
-			depends: depends[id],
-			description: description[id],
-			due: due[id],
-			priority: priority[id],
-			recur: recur[id],
-			wait: wait[id],
+		R.sortBy(R.identity),
+
+		map((uuid, i) => ({
+			i: i + 1,
+			uuid,
+			created: created[uuid],
+			depends: depends[uuid],
+			description: description[uuid],
+			due: due[uuid],
+			priority: priority[uuid],
+			recur: recur[uuid],
+			wait: wait[uuid],
 			tags: R.pipe(
-				R.filter(({ task }) => task === id),
+				R.filter(({ task }) => task === uuid),
 				R.map(R.prop("tag")),
 			)(tags),
 		})),
@@ -55,7 +64,7 @@ export default () => {
 		),
 
 		R.map(R.omit(["wait"])),
-	)(ids);
+	)(uuids);
 
 	console.log(
 		columnify(data, {
