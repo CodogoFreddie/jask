@@ -52,4 +52,6 @@ export const tags = (state = [], action) =>
 		R.identity)(state);
 
 export const updated = (state = {}, action) =>
-	R.assoc(action.id, new Date().toISOString(), state);
+	((!action.type.includes("@@redux") &&
+		R.assoc(action.id, new Date().toISOString())) ||
+		R.identity)(state);

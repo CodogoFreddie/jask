@@ -2,6 +2,9 @@ import R from "ramda";
 
 import add from "./add";
 
+import { storeIsReady } from "./redux";
+import render from "./render";
+
 const stubbed = () => console.log("stubbed");
 
 const delete_ = stubbed;
@@ -40,12 +43,16 @@ const grouped = R.pipe(
 	R.over(R.lensProp("strings"), R.defaultTo([])),
 )(rest);
 
-(({
-	add,
-	delete: delete_,
-	done,
-	modify,
-}[command] || noop)({
-	...grouped,
-	command,
-}));
+storeIsReady().then(() => {
+	(({
+		add,
+		delete: delete_,
+		done,
+		modify,
+	}[command] || noop)({
+		...grouped,
+		command,
+	}));
+
+	render();
+});
