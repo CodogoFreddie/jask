@@ -1,7 +1,7 @@
-import { applyMiddleware, combineReducers, createStore } from "redux";
+import { applyMiddleware, combineReducers, createStore, } from "redux";
 
 import * as reducers from "./reducers";
-import { actionSaver } from "./middleware";
+import { actionSaver, } from "./middleware";
 import readSavedActions from "./readSavedActions";
 
 const reducer = combineReducers(reducers);

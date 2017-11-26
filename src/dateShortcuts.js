@@ -1,5 +1,5 @@
 import R from "ramda";
-import { addDays, addWeeks, addMonths, addYears } from "date-fns";
+import { addDays, addWeeks, addMonths, addYears, } from "date-fns";
 
 const extractNumber = adder =>
 	R.pipe(
@@ -10,8 +10,8 @@ const extractNumber = adder =>
 	);
 
 export const parse = R.cond([
-	[R.test(/\d+d/), extractNumber(addDays)],
-	[R.test(/\d+w/), extractNumber(addWeeks)],
-	[R.test(/\d+m/), extractNumber(addMonths)],
-	[R.test(/\d+y/), extractNumber(addYears)],
+	[R.test(/\d+d/), extractNumber(addDays),],
+	[R.test(/\d+w/), extractNumber(addWeeks),],
+	[R.test(/\d+m/), extractNumber(addMonths),],
+	[R.test(/\d+y/), extractNumber(addYears),],
 ]);
