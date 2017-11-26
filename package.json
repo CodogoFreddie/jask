@@ -1,5 +1,5 @@
 {
-	"name": "todo",
+	"name": "jask",
 	"private": true,
 	"version": "0.0.1",
 	"description": "A CLI todo manager",
@@ -7,6 +7,9 @@
 	"repository": "git@github.com:CodogoFreddie/todo.git",
 	"author": "Freddie Ridell <freddie@codogo.io>",
 	"license": "MIT",
+	"bin": {
+		"jask": "jask.js"
+	},
 	"eslintConfig": {
 		"extends": "codogo"
 	},
