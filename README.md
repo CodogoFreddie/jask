@@ -5,7 +5,7 @@ A CLI Todo manager
 
 + Provide a similar CLI API to [task warrior](https://taskwarrior.org), but not weighed down by full compatability
 + Use a simple, append only, many-file storage solution; with no build-in syncing (for now)
-+ Be configured through an expressive yaml dotfile
++ Be configured through a `.js` file, allowing for functions/full expressivness in configuration
 + Provide a CLI first, then a react native app, then a react web app
 
 ## Notes
