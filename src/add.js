@@ -24,10 +24,10 @@ export default ({ modifiers: { props, tags, strings } }) => {
 		due: (due ? parse(due) : new Date() ).toISOString(),
 		priority,
 		project,
-		props: rest,
 		recur,
 		tags: tagsList,
 		wait: (wait ? parse(wait) : new Date() ).toISOString(),
+		...rest,
 	};
 
 	store.dispatch(action);
