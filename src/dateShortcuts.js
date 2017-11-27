@@ -3,7 +3,7 @@ import {
 	addDays,
 	addMonths,
 	addWeeks,
-	addYears
+	addYears,
 	endOfDay,
 	endOfMonth,
 	endOfWeek,
