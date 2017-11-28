@@ -18,10 +18,12 @@ module.exports = {
 		"created",
 	],
 
-	scoreFunction: ({ description, created, depends, due, project, priority, recur, wait, tags, }) => {
+	scoreFunction: ({ created, due, project, priority, tags, }) => {
 		const ageScore = differenceInDays(new Date(), created);
 		const tagsCountScore = tags.length;
-		const dueInScore = due ? 10 * Math.exp( differenceInMinutes(new Date(), due) / 36000 ) : 0 ;
+		const dueInScore = due
+			? 10 * Math.exp(differenceInMinutes(new Date(), due) / 36000)
+			: 0;
 		const projectScore = project ? 3 : 0;
 
 		const priorityScore =

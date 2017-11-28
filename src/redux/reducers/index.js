@@ -1,7 +1,3 @@
-import R from "ramda";
-
-import Consts from "../../consts";
-
 export { default as uuids, } from "./uuids";
 export { default as created, } from "./created";
 export { default as depends, } from "./depends";

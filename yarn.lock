@@ -651,7 +651,7 @@ babel-plugin-node-source-map-support@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/babel-plugin-node-source-map-support/-/babel-plugin-node-source-map-support-0.0.1.tgz#600a49bf76fcb4bf24a9cedbde8ad25246020769"
 
-babel-plugin-preval@^1.5.0:
+babel-plugin-preval@^1.5.0, babel-plugin-preval@^1.6.2:
   version "1.6.2"
   resolved "https://registry.yarnpkg.com/babel-plugin-preval/-/babel-plugin-preval-1.6.2.tgz#8f580a1d4579d5fc79f1cfaee6f9fe0996fdeb1f"
   dependencies:

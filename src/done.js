@@ -1,18 +1,16 @@
-import R from "ramda";
-
 import Consts from "./consts";
 import store from "./redux";
 import getIDsSatisfyingFilter from "./getIDsSatisfyingFilter";
 
 export default ({ filter, filterPresent, }) => {
-	if(!filterPresent){
+	if (!filterPresent) {
 		return console.log(`
 can not mark all tasks as done, please specify a filter:
 	jask [filter] done
 `);
 	}
 
-	getIDsSatisfyingFilter(filter).map(uuid => {
+	getIDsSatisfyingFilter(filter).forEach(uuid => {
 		store.dispatch({
 			type: Consts.Actions.DONE,
 			uuid,

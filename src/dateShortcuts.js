@@ -1,5 +1,5 @@
 import R from "ramda";
-import { 
+import {
 	addDays,
 	addMonths,
 	addWeeks,
@@ -23,10 +23,10 @@ const extractNumber = adder =>
 	);
 
 export const parse = R.cond([
-	[R.test(/\d+d/), extractNumber(addDays)],
-	[R.test(/\d+w/), extractNumber(addWeeks)],
-	[R.test(/\d+m/), extractNumber(addMonths)],
-	[R.test(/\d+y/), extractNumber(addYears)],
+	[R.test(/\d+d/), extractNumber(addDays),],
+	[R.test(/\d+w/), extractNumber(addWeeks),],
+	[R.test(/\d+m/), extractNumber(addMonths),],
+	[R.test(/\d+y/), extractNumber(addYears),],
 	[R.test(/^eod$/), () => endOfDay(new Date()),],
 	[R.test(/^eom$/), () => endOfMonth(new Date()),],
 	[R.test(/^eow$/), () => endOfWeek(new Date()),],

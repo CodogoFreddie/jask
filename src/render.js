@@ -1,6 +1,6 @@
 import columnify from "columnify";
 import R from "ramda";
-import { formatDistanceWithOptions, format, } from "date-fns/fp";
+import { formatDistanceWithOptions, } from "date-fns/fp";
 
 import store from "./redux";
 import config from "./config";

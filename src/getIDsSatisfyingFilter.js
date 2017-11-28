@@ -1,19 +1,19 @@
 import R from "ramda";
 
-import Consts from "./consts";
+//import Consts from "./consts";
 import store from "./redux";
 
 export default filter => {
 	const {
 		uuids,
-		created,
-		depends,
-		description,
-		due,
-		priority,
-		recur,
-		wait,
-		tags,
+		//created,
+		//depends,
+		//description,
+		//due,
+		//priority,
+		//recur,
+		//wait,
+		//tags,
 	} = store.getState();
 
 	return R.pipe(

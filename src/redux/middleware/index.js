@@ -4,7 +4,7 @@ import mkdir from "make-dir";
 import config from "../../config";
 import Consts from "../../consts";
 
-export const actionSaver = store => next => action => {
+export const actionSaver = () => next => action => {
 	if (!action[Consts.Actions.RESTORING_FROM_CACHE]) {
 		const folder = config.dataFolder.replace(/\/?$/, "/") + action.uuid;
 		const filename = folder + "/" + new Date().getTime();
