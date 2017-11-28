@@ -16,6 +16,8 @@ const [filter, [keyword, ...modifiers],] = R.splitWhen(
 	args,
 );
 
+const filterPresent = !!filter.length;
+
 const groupArgs = R.pipe(
 	R.groupBy(
 		x =>
@@ -44,6 +46,7 @@ const payload = R.pipe(
 	filter,
 	keyword,
 	modifiers,
+	filterPresent,
 });
 
 storeIsReady().then(() => {

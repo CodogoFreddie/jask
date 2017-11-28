@@ -4,7 +4,14 @@ import Consts from "./consts";
 import store from "./redux";
 import getIDsSatisfyingFilter from "./getIDsSatisfyingFilter";
 
-export default ({ filter, }) => {
+export default ({ filter, filterPresent, }) => {
+	if(!filterPresent){
+		return console.log(`
+can not mark all tasks as done, please specify a filter:
+	jask [filter] done
+`);
+	}
+
 	getIDsSatisfyingFilter(filter).map(uuid => {
 		store.dispatch({
 			type: Consts.Actions.DONE,
