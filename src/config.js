@@ -1,5 +1,6 @@
 const differenceInMinutes = require("date-fns/differenceInMinutes");
 const differenceInDays = require("date-fns/differenceInDays");
+const R = require("ramda");
 
 module.exports = {
 	dataFolder: "/home/freddie/Sync/Files/Todo",
@@ -11,15 +12,17 @@ module.exports = {
 		"due",
 		"tags",
 		"priority",
+		"project",
 		"depends",
 		"recur",
 		"created",
 	],
 
-	scoreFunction: ({ created, depends, due, priority, recur, wait, tags, }) => {
-		const age = differenceInDays(new Date(), created);
-		const tagsCount = tags.length;
-		const dueIn = differenceInMinutes(due, new Date()) / 360;
+	scoreFunction: ({ description, created, depends, due, project, priority, recur, wait, tags, }) => {
+		const ageScore = differenceInDays(new Date(), created);
+		const tagsCountScore = tags.length;
+		const dueInScore = due ? 10 * Math.exp( differenceInMinutes(new Date(), due) / 36000 ) : 0 ;
+		const projectScore = project ? 3 : 0;
 
 		const priorityScore =
 			{
@@ -28,6 +31,12 @@ module.exports = {
 				l: -2,
 			}[priority] || 0;
 
-		return age + tagsCount + priorityScore + 10 * Math.exp(-dueIn);
+		return R.sum([
+			ageScore,
+			tagsCountScore,
+			dueInScore,
+			priorityScore,
+			projectScore,
+		]);
 	},
 };

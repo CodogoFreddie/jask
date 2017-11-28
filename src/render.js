@@ -16,6 +16,7 @@ export default ({ filter, }) => {
 		done,
 		due,
 		priority,
+		project,
 		recur,
 		tags,
 		uuids,
@@ -34,6 +35,7 @@ export default ({ filter, }) => {
 			description: description[uuid],
 			due: due[uuid],
 			priority: priority[uuid],
+			project: project[uuid],
 			recur: recur[uuid],
 			wait: wait[uuid],
 			tags: R.pipe(
