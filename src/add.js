@@ -1,11 +1,11 @@
 import R from "ramda";
 
 import Consts from "./consts";
-import { genUUID } from "./lib";
+import { genUUID, } from "./lib";
 import store from "./redux";
-import { parse } from "./dateShortcuts";
+import { parse, } from "./dateShortcuts";
 
-export default ({ modifiers: { props, tags, strings } }) => {
+export default ({ modifiers: { props, tags, strings, }, }) => {
 	const description = strings.join(" ");
 
 	const tagsList = R.pipe(
@@ -21,12 +21,11 @@ export default ({ modifiers: { props, tags, strings } }) => {
 		created: new Date().toISOString(),
 		depends,
 		description,
-		due: (due ? parse(due) : new Date() ).toISOString(),
+		due: due ? parse(due).toISOString() : null,
 		priority,
 		project,
 		recur,
 		tags: tagsList,
-		wait: (wait ? parse(wait) : new Date() ).toISOString(),
 		...rest,
 	};
 

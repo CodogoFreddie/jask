@@ -1,6 +1,6 @@
 import columnify from "columnify";
 import R from "ramda";
-import { formatDistanceWithOptions, format } from "date-fns/fp";
+import { formatDistanceWithOptions, format, } from "date-fns/fp";
 
 import store from "./redux";
 import config from "./config";
@@ -9,26 +9,25 @@ import getIDsSatisfyingFilter from "./getIDsSatisfyingFilter";
 const map = R.addIndex(R.map);
 
 export default ({ filter, }) => {
-
-	console.log( getIDsSatisfyingFilter(filter) );
-
 	const {
-		uuids,
 		created,
 		depends,
 		description,
+		done,
 		due,
 		priority,
 		recur,
-		wait,
 		tags,
+		uuids,
+		wait,
 	} = store.getState();
 
 	const data = R.pipe(
+		R.reject(uuid => done[uuid]),
 		R.sortBy(R.identity),
 
-		map((uuid, i) => ({
-			i: i + 1,
+		map(uuid => ({
+			i: uuids.indexOf(uuid),
 			uuid,
 			created: created[uuid],
 			depends: depends[uuid],
@@ -38,7 +37,7 @@ export default ({ filter, }) => {
 			recur: recur[uuid],
 			wait: wait[uuid],
 			tags: R.pipe(
-				R.filter(({ task }) => task === uuid),
+				R.filter(({ task, }) => task === uuid),
 				R.map(R.prop("tag")),
 			)(tags),
 		})),
@@ -55,16 +54,23 @@ export default ({ filter, }) => {
 		R.map(
 			R.evolve({
 				score: x => x.toPrecision(3),
-				created: formatDistanceWithOptions({ addSuffix: true })(
+				created: formatDistanceWithOptions({ addSuffix: true, })(
 					new Date(),
 				),
-				due: formatDistanceWithOptions({ addSuffix: true })(new Date()),
+				due: R.when(
+					Boolean,
+					formatDistanceWithOptions({ addSuffix: true, })(new Date()),
+				),
+				done: R.when(
+					Boolean,
+					formatDistanceWithOptions({ addSuffix: true, })(new Date()),
+				),
 				tags: R.pipe(R.map(x => "+" + x), R.join(", ")),
 			}),
 		),
 
-		R.map(R.omit(["wait"])),
-	)(uuids);
+		R.map(R.omit(["wait",])),
+	)(getIDsSatisfyingFilter(filter));
 
 	console.log(
 		columnify(data, {

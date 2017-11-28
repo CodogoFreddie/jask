@@ -3,9 +3,7 @@ import R from "ramda";
 import Consts from "./consts";
 import store from "./redux";
 
-export default (filter) => {
-	console.log("filter", filter);
-
+export default filter => {
 	const {
 		uuids,
 		created,
@@ -20,11 +18,14 @@ export default (filter) => {
 
 	return R.pipe(
 		//check uuids
-		R.when( 
+		R.when(
 			() => filter.uuids.length,
-			R.filter( R.contains(R.__, filter.uuids)),
+			R.filter(R.contains(R.__, filter.uuids)),
 		),
+
+		//check indexs
+		R.when(() => filter.ids.length, () => filter.ids.map(i => uuids[i])),
 
 		R.identity,
 	)(uuids);
-}
+};

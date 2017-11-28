@@ -1,12 +1,14 @@
 {
-	"name": "todo",
-	"private": true,
-	"version": "0.0.1",
+	"name": "jask",
+	"version": "0.0.2",
 	"description": "A CLI todo manager",
 	"main": "lib/index.js",
 	"repository": "git@github.com:CodogoFreddie/todo.git",
 	"author": "Freddie Ridell <freddie@codogo.io>",
 	"license": "MIT",
+	"bin": {
+		"jask": "jask.js"
+	},
 	"eslintConfig": {
 		"extends": "codogo"
 	},
@@ -34,12 +36,12 @@
 		"babel-preset-codogo": "^2.0.1",
 		"babel-preset-env": "^1.6.1",
 		"eslint": "^4.11.0",
+		"codogo-react-scripts": "^1.0.14-delta.84",
 		"eslint-config-codogo": "^2.1.0",
 		"husky": "^0.14.3",
 		"prettier": "^1.8.2"
 	},
 	"dependencies": {
-		"codogo-react-scripts": "^1.0.14-delta.84",
 		"columnify": "^1.5.4",
 		"date-fns": "next",
 		"jsonfile": "^4.0.0",
