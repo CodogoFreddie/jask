@@ -2,11 +2,24 @@ import R from "ramda";
 import Consts from "../../consts";
 
 export default (state = [], action) =>
-	((action.type === Consts.Actions.CREATE &&
-		R.concat(
-			action.tags.map(tag => ({
-				tag,
-				task: action.uuid,
-			})),
-		)) ||
-		R.identity)(state);
+	R.pipe(
+		R.when(
+			() => action.type === Consts.Actions.CREATE,
+			R.concat(
+				(action.tags || []).map(tag => ({
+					tag,
+					task: action.uuid,
+				})),
+			),
+		),
+
+		R.when(
+			() => action.type === Consts.Actions.MODIFY,
+			R.concat(
+				(action.tags || []).map(tag => ({
+					tag,
+					task: action.uuid,
+				})),
+			),
+		),
+	)(state);
