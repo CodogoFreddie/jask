@@ -3,6 +3,7 @@
 const Consts = {
 	Actions: {
 		CREATE: "",
+		MODIFY: "",
 		DONE: "",
 
 		RESTORING_FROM_CACHE: "",

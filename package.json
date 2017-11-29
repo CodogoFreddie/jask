@@ -45,6 +45,7 @@
 		"prettier": "^1.8.2"
 	},
 	"dependencies": {
+		"codogo-plog": "^0.1.9",
 		"columnify": "^1.5.4",
 		"date-fns": "next",
 		"jsonfile": "^4.0.0",

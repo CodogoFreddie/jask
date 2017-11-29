@@ -3,7 +3,7 @@ import R from "ramda";
 import Consts from "./consts";
 import { genUUID, } from "./lib";
 import store from "./redux";
-import { parse, } from "./dateShortcuts";
+import parseDefinedProps from "./parseDefinedProps";
 
 export default ({ modifiers: { props, tags, strings, }, }) => {
 	const description = strings.join(" ");
@@ -13,20 +13,13 @@ export default ({ modifiers: { props, tags, strings, }, }) => {
 		R.map(R.replace(/^\+/, "")),
 	)(tags);
 
-	const { due, wait, depends, project, priority, recur, ...rest } = props;
-
 	const action = {
+		created: new Date().toISOString(),
+		description,
+		tags: tagsList,
 		type: Consts.Actions.CREATE,
 		uuid: genUUID(),
-		created: new Date().toISOString(),
-		depends,
-		description,
-		due: due ? parse(due).toISOString() : null,
-		priority,
-		project,
-		recur,
-		tags: tagsList,
-		...rest,
+		...parseDefinedProps(props),
 	};
 
 	store.dispatch(action);

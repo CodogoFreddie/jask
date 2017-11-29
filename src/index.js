@@ -2,6 +2,7 @@ import R from "ramda";
 
 import add from "./add";
 import done from "./done";
+import modify from "./modify";
 
 import { storeIsReady, } from "./redux";
 import render from "./render";
@@ -17,6 +18,7 @@ const [filter, [keyword, ...modifiers],] = R.splitWhen(
 );
 
 const filterPresent = !!filter.length;
+const modifiersPresent = !!modifiers.length;
 
 const groupArgs = R.pipe(
 	R.groupBy(
@@ -47,14 +49,14 @@ const payload = R.pipe(
 	keyword,
 	modifiers,
 	filterPresent,
+	modifiersPresent,
 });
 
 storeIsReady().then(() => {
 	(({
 		add,
-		//delete: delete_,
 		done,
-		//modify,
+		modify,
 	}[keyword] || (() => {}))(payload));
 
 	render(payload);

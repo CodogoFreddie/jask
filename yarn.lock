@@ -1569,6 +1569,10 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
+codogo-plog@^0.1.9:
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/codogo-plog/-/codogo-plog-0.1.9.tgz#2f84ba684fb7bc18fbc81ea6428e833e942e3833"
+
 codogo-react-scripts@^1.0.14-delta.84:
   version "1.0.14-delta.84"
   resolved "https://registry.yarnpkg.com/codogo-react-scripts/-/codogo-react-scripts-1.0.14-delta.84.tgz#cce36746a882fbe94ae41a21a0ebac4ec9bb63a3"
