@@ -35,4 +35,5 @@ export const parse = R.cond([
 	[R.test(/^som$/), () => startOfMonth(new Date()),],
 	[R.test(/^sow$/), () => startOfWeek(new Date()),],
 	[R.test(/^soy$/), () => startOfYear(new Date()),],
+	[R.test(/^now$/), () => new Date(),],
 ]);

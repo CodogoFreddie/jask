@@ -27,23 +27,17 @@ modify requires modifiers:
 
 	const uuids = getIDsSatisfyingFilter(filter);
 
-	const description = strings.join(" ");
-
-	const tagsList = R.pipe(
-		R.filter(R.test(/^\+/)),
-		R.map(R.replace(/^\+/, "")),
-	)(tags);
-
 	uuids.forEach(uuid => {
 		const action = {
-			description,
-			tags: tagsList,
 			type: Consts.Actions.MODIFY,
 			uuid,
-			...parseDefinedProps(props),
+			...parseDefinedProps({
+				strings,
+				tags,
+				...props,
+			}),
 		};
 
-		console.log("would modify", action);
-		//store.dispatch(action);
+		store.dispatch(action);
 	});
 };

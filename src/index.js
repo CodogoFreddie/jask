@@ -7,6 +7,8 @@ import modify from "./modify";
 import { storeIsReady, } from "./redux";
 import render from "./render";
 
+require("source-map-support").install();
+
 const [_, __, ...args] = process.argv;
 
 const uuidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;

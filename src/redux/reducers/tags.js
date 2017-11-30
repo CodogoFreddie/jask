@@ -19,6 +19,23 @@ const reducer = createReducer([], {
 				})),
 			),
 		),
+
+	[Consts.Actions.MODIFY]: ({ tags: { add, remove, }, uuid, }) =>
+		R.pipe(
+			R.concat(
+				add.map(tag => ({
+					tag,
+					task: uuid,
+				})),
+			),
+			R.difference(
+				R.__,
+				remove.map(tag => ({
+					tag,
+					task: uuid,
+				})),
+			),
+		),
 });
 
 export default reducer;
