@@ -59,13 +59,10 @@ export default ({ filter, }) => {
 				created: formatDistanceWithOptions({ addSuffix: true, })(
 					new Date(),
 				),
-				due: R.when(
-					Boolean,
-					formatDistanceWithOptions({ addSuffix: true, })(new Date()),
-				),
+				due: R.when(Boolean, formatDistanceWithOptions({})(new Date())),
 				done: R.when(
 					Boolean,
-					formatDistanceWithOptions({ addSuffix: true, })(new Date()),
+					formatDistanceWithOptions({})(new Date()),
 				),
 				tags: R.pipe(R.map(x => "+" + x), R.join(", ")),
 			}),

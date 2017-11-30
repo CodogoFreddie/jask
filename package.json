@@ -17,6 +17,7 @@
 			"env"
 		],
 		"plugins": [
+			"source-map-support",
 			"preval",
 			[
 				"transform-object-rest-spread",
@@ -45,6 +46,7 @@
 		"prettier": "^1.8.2"
 	},
 	"dependencies": {
+		"babel-plugin-source-map-support": "^1.0.0",
 		"codogo-plog": "^0.1.9",
 		"columnify": "^1.5.4",
 		"date-fns": "next",
@@ -53,6 +55,7 @@
 		"ramda": "^0.25.0",
 		"recursive-readdir": "^2.2.1",
 		"redux": "^3.7.2",
+		"redux-ramda": "^1.0.1",
 		"uuid": "^3.1.0"
 	}
 }

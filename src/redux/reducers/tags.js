@@ -1,25 +1,24 @@
 import R from "ramda";
 import Consts from "../../consts";
+import createReducer from "./createReducer";
 
-export default (state = [], action) =>
-	R.pipe(
-		R.when(
-			() => action.type === Consts.Actions.CREATE,
+const reducer = createReducer([], {
+	[Consts.Actions.CREATE]: ({ tags: { add, remove, }, uuid, }) =>
+		R.pipe(
 			R.concat(
-				(action.tags || []).map(tag => ({
+				add.map(tag => ({
 					tag,
-					task: action.uuid,
+					task: uuid,
+				})),
+			),
+			R.difference(
+				R.__,
+				remove.map(tag => ({
+					tag,
+					task: uuid,
 				})),
 			),
 		),
+});
 
-		R.when(
-			() => action.type === Consts.Actions.MODIFY,
-			R.concat(
-				(action.tags || []).map(tag => ({
-					tag,
-					task: action.uuid,
-				})),
-			),
-		),
-	)(state);
+export default reducer;

@@ -10,4 +10,7 @@ const store = createStore(reducer, applyMiddleware(actionSaver));
 
 export default store;
 
-export const storeIsReady = () => readSavedActions(store).then(() => store);
+export const storeIsReady = () =>
+	readSavedActions(store)
+		.then(() => store)
+		.catch(console.error);

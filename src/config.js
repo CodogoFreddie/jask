@@ -3,7 +3,7 @@ const differenceInDays = require("date-fns/differenceInDays");
 const R = require("ramda");
 
 module.exports = {
-	dataFolder: "/home/freddie/Sync/Files/Todo",
+	dataFolder: "/home/freddie/Sync/Files/Jask",
 
 	columns: [
 		"score",

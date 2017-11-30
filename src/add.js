@@ -8,19 +8,19 @@ import parseDefinedProps from "./parseDefinedProps";
 export default ({ modifiers: { props, tags, strings, }, }) => {
 	const description = strings.join(" ");
 
-	const tagsList = R.pipe(
-		R.filter(R.test(/^\+/)),
-		R.map(R.replace(/^\+/, "")),
-	)(tags);
-
 	const action = {
 		created: new Date().toISOString(),
 		description,
-		tags: tagsList,
 		type: Consts.Actions.CREATE,
 		uuid: genUUID(),
-		...parseDefinedProps(props),
+		...parseDefinedProps({
+			strings,
+			tags,
+			...props,
+		}),
 	};
+
+	//console.log(action);
 
 	store.dispatch(action);
 };

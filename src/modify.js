@@ -43,6 +43,7 @@ modify requires modifiers:
 			...parseDefinedProps(props),
 		};
 
-		store.dispatch(action);
+		console.log("would modify", action);
+		//store.dispatch(action);
 	});
 };

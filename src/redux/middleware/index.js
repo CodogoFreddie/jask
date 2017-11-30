@@ -5,7 +5,10 @@ import config from "../../config";
 import Consts from "../../consts";
 
 export const actionSaver = () => next => action => {
-	if (!action[Consts.Actions.RESTORING_FROM_CACHE]) {
+	if (
+		!action[Consts.Actions.RESTORING_FROM_CACHE] &&
+		!action.type.includes("@@redux")
+	) {
 		const folder = config.dataFolder.replace(/\/?$/, "/") + action.uuid;
 		const filename = folder + "/" + new Date().getTime();
 
