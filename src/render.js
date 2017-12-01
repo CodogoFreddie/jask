@@ -1,4 +1,5 @@
 import columnify from "columnify";
+import chalk from "chalk";
 import R from "ramda";
 import { formatDistanceWithOptions, } from "date-fns/fp";
 
@@ -64,7 +65,7 @@ export default ({ filter, }) => {
 					Boolean,
 					formatDistanceWithOptions({})(new Date()),
 				),
-				tags: R.pipe(R.map(x => "+" + x), R.join(", ")),
+				tags: R.join(" "),
 			}),
 		),
 
@@ -74,6 +75,9 @@ export default ({ filter, }) => {
 	console.log(
 		columnify(data, {
 			columns: config.columns,
-		}),
+		})
+			.split("\n")
+			.map((row, i) => (i % 2 ? chalk.bgBlack(row) : row))
+			.join("\n"),
 	);
 };
