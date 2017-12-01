@@ -6,44 +6,18 @@ import { formatDistanceWithOptions, } from "date-fns/fp";
 import store from "./redux";
 import config from "./config";
 import getIDsSatisfyingFilter from "./getIDsSatisfyingFilter";
+import { selectSingleTask, } from "./selectTask";
 
 const map = R.addIndex(R.map);
 
 export default ({ filter, }) => {
-	const {
-		created,
-		depends,
-		description,
-		done,
-		due,
-		priority,
-		project,
-		recur,
-		tags,
-		uuids,
-		wait,
-	} = store.getState();
+	const { done, } = store.getState();
 
 	const data = R.pipe(
 		R.reject(uuid => done[uuid]),
 		R.sortBy(R.identity),
 
-		map(uuid => ({
-			i: uuids.indexOf(uuid),
-			uuid,
-			created: created[uuid],
-			depends: depends[uuid],
-			description: description[uuid],
-			due: due[uuid],
-			priority: priority[uuid],
-			project: project[uuid],
-			recur: recur[uuid],
-			wait: wait[uuid],
-			tags: R.pipe(
-				R.filter(({ task, }) => task === uuid),
-				R.map(R.prop("tag")),
-			)(tags),
-		})),
+		map(selectSingleTask),
 
 		R.map(props => ({
 			...props,
@@ -60,10 +34,13 @@ export default ({ filter, }) => {
 				created: formatDistanceWithOptions({ addSuffix: true, })(
 					new Date(),
 				),
-				due: R.when(Boolean, formatDistanceWithOptions({})(new Date())),
+				due: R.when(
+					Boolean,
+					formatDistanceWithOptions({ addSuffix: true, })(new Date()),
+				),
 				done: R.when(
 					Boolean,
-					formatDistanceWithOptions({})(new Date()),
+					formatDistanceWithOptions({ addSuffix: true, })(new Date()),
 				),
 				tags: R.join(" "),
 			}),

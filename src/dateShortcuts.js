@@ -14,26 +14,24 @@ import {
 	startOfYear,
 } from "date-fns";
 
-const extractNumber = adder =>
-	R.pipe(
-		R.match(/\d+/),
-		R.head,
-		x => parseInt(x, 10),
-		x => adder(new Date(), x),
-	);
+const extractNumber = (adder, ref) =>
+	R.pipe(R.match(/\d+/), R.head, x => parseInt(x, 10), x => adder(ref, x));
 
-export const parse = R.cond([
-	[R.test(/\d+d/), extractNumber(addDays),],
-	[R.test(/\d+w/), extractNumber(addWeeks),],
-	[R.test(/\d+m/), extractNumber(addMonths),],
-	[R.test(/\d+y/), extractNumber(addYears),],
-	[R.test(/^eod$/), () => endOfDay(new Date()),],
-	[R.test(/^eom$/), () => endOfMonth(new Date()),],
-	[R.test(/^eow$/), () => endOfWeek(new Date()),],
-	[R.test(/^eoy$/), () => endOfYear(new Date()),],
-	[R.test(/^sod$/), () => startOfDay(new Date()),],
-	[R.test(/^som$/), () => startOfMonth(new Date()),],
-	[R.test(/^sow$/), () => startOfWeek(new Date()),],
-	[R.test(/^soy$/), () => startOfYear(new Date()),],
-	[R.test(/^now$/), () => new Date(),],
-]);
+export const parseFrom = ref =>
+	R.cond([
+		[R.test(/\d+d/), extractNumber(addDays, ref),],
+		[R.test(/\d+w/), extractNumber(addWeeks, ref),],
+		[R.test(/\d+m/), extractNumber(addMonths, ref),],
+		[R.test(/\d+y/), extractNumber(addYears, ref),],
+		[R.test(/^eod$/), () => endOfDay(ref),],
+		[R.test(/^eom$/), () => endOfMonth(ref),],
+		[R.test(/^eow$/), () => endOfWeek(ref),],
+		[R.test(/^eoy$/), () => endOfYear(ref),],
+		[R.test(/^sod$/), () => startOfDay(ref),],
+		[R.test(/^som$/), () => startOfMonth(ref),],
+		[R.test(/^sow$/), () => startOfWeek(ref),],
+		[R.test(/^soy$/), () => startOfYear(ref),],
+		[R.test(/^now$/), () => ref,],
+	]);
+
+export const parseFromNow = parseFrom(new Date());

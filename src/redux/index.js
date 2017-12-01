@@ -1,12 +1,12 @@
 import { applyMiddleware, combineReducers, createStore, } from "redux";
 
 import * as reducers from "./reducers";
-import { actionSaver, } from "./middleware";
+import { renewRecuring, actionSaver, } from "./middleware";
 import readSavedActions from "./readSavedActions";
 
 const reducer = combineReducers(reducers);
 
-const store = createStore(reducer, applyMiddleware(actionSaver));
+const store = createStore(reducer, applyMiddleware(renewRecuring, actionSaver));
 
 export default store;
 

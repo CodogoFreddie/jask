@@ -1,5 +1,3 @@
-import R from "ramda";
-
 import Consts from "./consts";
 import { genUUID, } from "./lib";
 import store from "./redux";
@@ -19,8 +17,6 @@ export default ({ modifiers: { props, tags, strings, }, }) => {
 			...props,
 		}),
 	};
-
-	//console.log(action);
 
 	store.dispatch(action);
 };

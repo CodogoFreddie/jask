@@ -1,6 +1,6 @@
 import R from "ramda";
 
-import { parse, } from "./dateShortcuts";
+import { parseFromNow, } from "./dateShortcuts";
 
 const parseTags = R.pipe(
 	R.partition(R.test(/^\+/)),
@@ -13,7 +13,7 @@ const parseTags = R.pipe(
 	}),
 );
 
-const parseDue = R.when(Boolean, due => parse(due).toISOString());
+const parseDue = R.when(Boolean, due => parseFromNow(due).toISOString());
 
 const parsePriority = R.when(Boolean, priority =>
 	priority.slice(0, 1).toLowerCase(),
