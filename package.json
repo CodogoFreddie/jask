@@ -1,6 +1,6 @@
 {
 	"name": "jask",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"description": "A CLI todo manager",
 	"main": "lib/index.js",
 	"repository": "git@github.com:CodogoFreddie/todo.git",
