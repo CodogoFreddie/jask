@@ -77,7 +77,7 @@ export default ({ filter, }) => {
 			columns: config.columns,
 		})
 			.split("\n")
-			.map((row, i) => (i % 2 ? chalk.bgBlack(row) : row))
+			.map((row, i) => (i % 2 ? chalk.bgBlackBright(row) : row))
 			.join("\n"),
 	);
 };
