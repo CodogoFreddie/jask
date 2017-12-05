@@ -9,6 +9,14 @@ import getIDsSatisfyingFilter from "./getIDsSatisfyingFilter";
 
 const map = R.addIndex(R.map);
 
+const formatTimes = R.when(
+	Boolean,
+	R.pipe(
+		formatDistanceWithOptions({ addSuffix: true, })(new Date()),
+		R.replace("about ", ""),
+	),
+);
+
 export default ({ filter, }) => {
 	const {
 		created,
@@ -57,14 +65,9 @@ export default ({ filter, }) => {
 		R.map(
 			R.evolve({
 				score: x => x.toPrecision(3),
-				created: formatDistanceWithOptions({ addSuffix: true, })(
-					new Date(),
-				),
-				due: R.when(Boolean, formatDistanceWithOptions({})(new Date())),
-				done: R.when(
-					Boolean,
-					formatDistanceWithOptions({})(new Date()),
-				),
+				created: formatTimes,
+				due: formatTimes,
+				done: formatTimes,
 				tags: R.join(" "),
 			}),
 		),
