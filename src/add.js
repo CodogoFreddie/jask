@@ -1,5 +1,3 @@
-import R from "ramda";
-
 import Consts from "./consts";
 import { genUUID, } from "./lib";
 import store from "./redux";

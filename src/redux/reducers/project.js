@@ -9,8 +9,3 @@ export default createReducer(
 		[Consts.Actions.MODIFY]: ({ uuid, project, }) => R.assoc(uuid, project),
 	},
 );
-
-(state = {}, action) =>
-	((action.type === Consts.Actions.CREATE &&
-		R.assoc(action.uuid, action.project)) ||
-		R.identity)(state);
