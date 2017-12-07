@@ -18,7 +18,5 @@ export default ({ modifiers: { props, tags, strings, }, }) => {
 		}),
 	};
 
-	//console.log(action);
-
 	store.dispatch(action);
 };

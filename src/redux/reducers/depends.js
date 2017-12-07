@@ -6,6 +6,7 @@ export default createReducer(
 	{},
 	{
 		[Consts.Actions.CREATE]: ({ uuid, depends, }) => R.assoc(uuid, depends),
-		[Consts.Actions.MODIFY]: ({ uuid, depends, }) => R.assoc(uuid, depends),
+		[Consts.Actions.MODIFY]: ({ uuid, depends, }) =>
+			depends ? R.assoc(uuid, depends) : R.identity,
 	},
 );
