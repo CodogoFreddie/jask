@@ -13,6 +13,7 @@ export default filter => {
 		//priority,
 		//recur,
 		//wait,
+		project,
 		tags,
 	} = store.getState();
 
@@ -49,6 +50,12 @@ export default filter => {
 			),
 		),
 
-		R.identity,
+		//check project
+		R.when(
+			() => filter.props.project,
+			R.filter(uuid =>
+				(project[uuid] || "").includes(filter.props.project),
+			),
+		),
 	)(uuids);
 };
