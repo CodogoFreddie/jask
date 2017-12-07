@@ -15,7 +15,7 @@ module.exports = {
 		"project",
 		"depends",
 		"recur",
-		"created",
+		//"created",
 	],
 
 	scoreFunction: ({ created, due, project, priority, tags, }) => {

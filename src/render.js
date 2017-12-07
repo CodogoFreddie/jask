@@ -55,6 +55,7 @@ export default ({ filter, }) => {
 		})
 			.split("\n")
 			.map((row, i) => (i % 2 ? row : chalk.bgBlackBright(row)))
+			.map(row => (row.includes("ago") ? chalk.red(row) : row))
 			.join("\n"),
 	);
 };
