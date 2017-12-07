@@ -1,6 +1,7 @@
 import R from "ramda";
 import Consts from "../../consts";
+import createReducer from "./createReducer";
 
-export default (state = [], action) =>
-	((action.type === Consts.Actions.CREATE && R.append(action.uuid)) ||
-		R.identity)(state);
+export default createReducer([], {
+	[Consts.Actions.CREATE]: ({ uuid, }) => R.append(uuid),
+});

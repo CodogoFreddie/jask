@@ -1,5 +1,3 @@
-import R from "ramda";
-
 import Consts from "./consts";
 import getIDsSatisfyingFilter from "./getIDsSatisfyingFilter";
 import store from "./redux";

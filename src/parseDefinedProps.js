@@ -33,4 +33,5 @@ export default R.pipe(
 		strings: parseStrings,
 	}),
 	renameStringsToDescription,
+	R.unless(R.path(["description", "length",]), R.dissoc("description")),
 );

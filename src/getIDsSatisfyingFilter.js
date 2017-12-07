@@ -13,12 +13,22 @@ export default filter => {
 		//priority,
 		//recur,
 		//wait,
-		//tags,
+		tags,
 	} = store.getState();
 
-	//const [includeTags, excludeTags,] = R.partition(R.test(/^\+/), filter.tags);
+	const [includeTags, excludeTags,] = R.partition(R.test(/^\+/), filter.tags);
 
-	//console.log( {includeTags, excludeTags,});
+	const includeForTagUUIDSSet = new Set();
+	const excludeForTagUUIDSSet = new Set();
+
+	tags.forEach(({ tag, task, }) => {
+		if (includeTags.includes("+" + tag)) {
+			includeForTagUUIDSSet.add(task);
+		}
+		if (excludeTags.includes("-" + tag)) {
+			excludeForTagUUIDSSet.add(task);
+		}
+	});
 
 	return R.pipe(
 		//check uuids
@@ -30,10 +40,14 @@ export default filter => {
 		//check indexs
 		R.when(() => filter.ids.length, () => filter.ids.map(i => uuids[i])),
 
-		//tags
-		//R.when(
-		//() => filter.tags.length,
-		//),
+		//check tags
+		R.when(
+			() => filter.tags.length,
+			R.pipe(
+				R.filter(uuid => includeForTagUUIDSSet.has(uuid)),
+				R.reject(uuid => excludeForTagUUIDSSet.has(uuid)),
+			),
+		),
 
 		R.identity,
 	)(uuids);

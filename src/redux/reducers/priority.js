@@ -8,6 +8,6 @@ export default createReducer(
 		[Consts.Actions.CREATE]: ({ uuid, priority, }) =>
 			R.assoc(uuid, priority),
 		[Consts.Actions.MODIFY]: ({ uuid, priority, }) =>
-			R.assoc(uuid, priority),
+			priority ? R.assoc(uuid, priority) : R.identity,
 	},
 );

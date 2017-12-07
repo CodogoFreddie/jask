@@ -10,6 +10,14 @@ import { selectSingleTask, } from "./selectTask";
 
 const map = R.addIndex(R.map);
 
+const formatTimes = R.when(
+	Boolean,
+	R.pipe(
+		formatDistanceWithOptions({ addSuffix: true, })(new Date()),
+		R.replace("about ", ""),
+	),
+);
+
 export default ({ filter, }) => {
 	const { done, } = store.getState();
 
@@ -31,17 +39,9 @@ export default ({ filter, }) => {
 		R.map(
 			R.evolve({
 				score: x => x.toPrecision(3),
-				created: formatDistanceWithOptions({ addSuffix: true, })(
-					new Date(),
-				),
-				due: R.when(
-					Boolean,
-					formatDistanceWithOptions({ addSuffix: true, })(new Date()),
-				),
-				done: R.when(
-					Boolean,
-					formatDistanceWithOptions({ addSuffix: true, })(new Date()),
-				),
+				created: formatTimes,
+				due: formatTimes,
+				done: formatTimes,
 				tags: R.join(" "),
 			}),
 		),
@@ -54,7 +54,7 @@ export default ({ filter, }) => {
 			columns: config.columns,
 		})
 			.split("\n")
-			.map((row, i) => (i % 2 ? chalk.bgBlack(row) : row))
+			.map((row, i) => (i % 2 ? row : chalk.bgBlackBright(row)))
 			.join("\n"),
 	);
 };
